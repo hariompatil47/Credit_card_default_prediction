@@ -13,8 +13,8 @@ from src.components.data_transformation import DataTransformation
        ## 1. __init__ Method
        ## 2. initiate_data_ingestion Method:
        ## 3. Ensure Directory Exists and Save Raw Data
-       ## 4. Train-Test Split
-       ## 5. Save Train and Test Data
+       ## 4. Train-Test Split Save Train and Test Data
+        
 
 @dataclass
 class DataIngestionconfig:
