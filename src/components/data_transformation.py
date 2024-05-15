@@ -1,3 +1,11 @@
+## steps:
+## 1. Standard Library Imports
+## 2. Data Transformation Configuration
+## 3. __init__ Method
+## 4. Get Data Transformation Object Method : Create pipeline for numerical data.
+## 5. Initiate Data Transformation Method: Read the data, apply transformations, and save the preprocessor.
+
+## 1. Standard Library Imports
 import sys
 from dataclasses import dataclass
 
@@ -13,15 +21,17 @@ from src.logger import logging
 import os
 from src.utils import save_object
 
+## 2. Data Transformation Configuration
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path=os.path.join('artifacts','preprocessor.pkl')
 
-
+## 3. __init__ Method
 class DataTransformation:
     def __init__(self):
         self.data_transformation_config=DataTransformationConfig()
-
+        
+## 4. Get Data Transformation Object Method : Create pipeline for numerical data.
     def get_data_transformation_object(self):
         try:
             logging.info('Data Transformation initiated')
@@ -52,7 +62,9 @@ class DataTransformation:
         except Exception as e:
             logging.info("Error in Data Trnasformation")
             raise CustomException(e,sys)
-        
+            
+## 5. Initiate Data Transformation Method: Read the data, apply transformations, and save the preprocessor.    
+    
     def initiate_data_transformation(self,train_path,test_path):
         try:
             # Reading train and test data
