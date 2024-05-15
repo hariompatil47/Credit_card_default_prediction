@@ -9,11 +9,7 @@ from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 
 ## Intitialize the Data Ingetion Configuration
-## steps:
-       ## 1. __init__ Method
-       ## 2. initiate_data_ingestion Method:
-       ## 3. Ensure Directory Exists and Save Raw Data
-       ## 4. Train-Test Split Save Train and Test Data
+
         
 
 @dataclass
@@ -23,32 +19,46 @@ class DataIngestionconfig:
     raw_data_path:str=os.path.join('artifacts','raw.csv')
 
 ## create a class for Data Ingestion
+## steps:
+       ## 1. __init__ Method
+       ## 2. initiate_data_ingestion Method:
+       ## 3. Ensure Directory Exists and Save Raw Data
+       ## 4. Train-Test Split Save Train and Test Data
+       ## 5. Return Paths
+       ## 6. Exception Handling
+
+## 1. __init__ Method
 class DataIngestion:
     def __init__(self):
         self.ingestion_config=DataIngestionconfig()
 
+##  2. initiate_data_ingestion Method:       
     def initiate_data_ingestion(self):
         logging.info('Data Ingestion methods Starts')
         try:
             df=pd.read_csv(os.path.join('notebooks','data','data.csv'))
             logging.info('Dataset read as pandas Dataframe')
-
+               
+## 3. Ensure Directory Exists and Save Raw Data
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path,index=False)
             logging.info('Train test split')
+
+ ## 4. Train-Test Split Save Train and Test Data 
+               
             train_set,test_set=train_test_split(df,test_size=0.30,random_state=42)
 
             train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
             test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
 
             logging.info('Ingestion of Data is completed')
-
+## 5. Return Paths
             return(
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path
             )
   
-            
+## 6. Exception Handling            
         except Exception as e:
             logging.info('Exception occured at Data Ingestion stage')
             raise CustomException(e,sys)
