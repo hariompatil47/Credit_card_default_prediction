@@ -1,9 +1,10 @@
 import sys
 from src.logger import logging
 
-def error_message_detail(error,error_detail:sys):
-    _,_,exc_tb = error_detail.exc_info()
-    file_name = exc_tb.tb_frame.f_code.co_filename
+def error_message_detail(error,error_detail:sys):  ## This line calls exc_info() from the sys
+    _,_,exc_tb = error_detail.exc_info() ## which returns a tuple of three values (type, value, traceback) and '_' is for ignoring the first two values  so only the traceback object (exc_tb) is kept.
+    ## This line 7 extracts the filename from the traceback object.
+    file_name = exc_tb.tb_frame.f_code.co_filename  # exc_tb.tb_frame gives the current frame, f_code gives the code object being executed in this frame, and co_filename gives the name of the file in which this code object was created.
 
     error_message = "Error occured in python script name [{0}] line number [{1}] error message [{2}]".format(
         file_name, exc_tb.tb_lineno, str(error)
